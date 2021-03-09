@@ -1,13 +1,14 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../../config/connection';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.User = void 0;
+const sequelize_1 = require("sequelize");
+const connection_1 = require("../../config/connection");
 // class User extends Model {
 //   public id!: number;
 //   public name!: string;
 //   public email!: string;
 //   public password1: string;
 // }
-
 // User.init(
 //   {
 //     id: {
@@ -34,31 +35,26 @@ import { sequelize } from '../../config/connection';
 //     sequelize,
 //   }
 // );
-
-export const User = sequelize.define(
-  'User',
-  {
+exports.User = connection_1.sequelize.define('User', {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true,
+        type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true,
     },
     name: {
-      type: new DataTypes.STRING(128),
-      allowNull: false,
+        type: new sequelize_1.DataTypes.STRING(128),
+        allowNull: false,
     },
     email: {
-      type: new DataTypes.STRING(128),
-      allowNull: false,
+        type: new sequelize_1.DataTypes.STRING(128),
+        allowNull: false,
     },
     password: {
-      type: new DataTypes.STRING(128),
-      allowNull: false,
+        type: new sequelize_1.DataTypes.STRING(128),
+        allowNull: false,
     },
-  },
-  {
+}, {
     tableName: 'users',
     modelName: 'user',
     timestamps: false,
-  }
-);
+});
