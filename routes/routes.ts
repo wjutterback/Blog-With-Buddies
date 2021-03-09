@@ -8,7 +8,11 @@ import { User } from '../src/models/Users';
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll();
-    res.status(200).json(userData);
+    //TODO: TypeScript doesn't recognize .get({plain: true}) method
+    // console.log(userData.get({ plain: true }));
+    // res.status(200).json(userData);
+    //TODO: Get data from userData into handlebars
+    res.render('blog', userData);
   } catch (err) {
     res.status(500).json(err);
   }

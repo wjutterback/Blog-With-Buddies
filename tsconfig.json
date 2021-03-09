@@ -13,3 +13,4 @@
     "./config/connections.ts"
   ]
 }
+//TODO: fix file structure on compile - maybe, rootdir used to control file structure

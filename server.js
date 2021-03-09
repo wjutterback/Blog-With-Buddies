@@ -21,4 +21,3 @@ app.use(routes_1.default);
 connection_1.sequelize.sync().then(() => {
     app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 });
-//TODO: Fix compile so that dist has the views folders found in src

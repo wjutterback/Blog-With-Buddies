@@ -18,7 +18,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = yield Users_1.User.findAll();
         // res.status(200).json(userData);
-        res.render('blog', userData);
+        res.render('blog', { userData });
     }
     catch (err) {
         res.status(500).json(err);
