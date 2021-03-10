@@ -7,10 +7,25 @@ import { User } from '../models/Users';
 //TODO: Use controller to pass in arguments/import functions
 router.get('/', async (req, res) => {
   try {
-    const userData = await User.findAll({ plain: true });
-    console.log(userData);
-    //TODO: Get data from userData into handlebars
-    res.render('blog', userData);
+    const userData: {
+      map: (
+        data
+      ) => Array<{
+        id: number;
+        name: string;
+        email: string;
+        password: string;
+      }>;
+    } = await User.findAll();
+    const plainData: Array<{
+      id: number;
+      name: string;
+      email: string;
+      password: string;
+    }> = userData.map((data) => data.get({ plain: true }));
+    console.log(plainData);
+//TODO: 
+    res.render('blog', plainData[0]);
   } catch (err) {
     res.status(500).json(err);
   }

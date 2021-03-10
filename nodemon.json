@@ -10,6 +10,6 @@
   },
   "ext": "hbs,js,json,ts",
   "events": {
-    "restart": "cp -r src/views dist \n cp -r dist"
+    "restart": "cp -r src/views dist"
   }
 }

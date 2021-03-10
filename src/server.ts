@@ -5,7 +5,7 @@ import { sequelize } from './config/connection';
 import routes from './routes/routes';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3030;
 const hbs = exphbs.create({
   //TODO: Figure out what's going on with the path/dist folder mix-up
   layoutsDir: path.join(__dirname, '/views/layouts'),
@@ -26,4 +26,3 @@ sequelize.sync().then(() => {
 });
 
 //TODO: Study more TypeScript
-//TODO: Determine why methods (like SEquelize's .get({plain: true}) fail to be recognized/fix this

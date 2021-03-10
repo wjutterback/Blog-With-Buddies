@@ -1,8 +1,14 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/connection';
 
-export const User = sequelize.define(
-  'User',
+export class User extends Model {
+  public id!: number;
+  public name!: string;
+  public email!: string;
+  public password1: string;
+}
+
+User.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -25,19 +31,14 @@ export const User = sequelize.define(
   {
     tableName: 'users',
     modelName: 'user',
+    sequelize,
     timestamps: false,
   }
 );
 
-//TODO: Determine why using Model failed to export/implement properly
-// class User extends Model {
-//   public id!: number;
-//   public name!: string;
-//   public email!: string;
-//   public password1: string;
-// }
-
-//export default User.init(
+//Alternative way to create new Model in Sequelize
+// export const User = sequelize.define(
+//   'User',
 //   {
 //     id: {
 //       type: DataTypes.INTEGER.UNSIGNED,
@@ -60,6 +61,6 @@ export const User = sequelize.define(
 //   {
 //     tableName: 'users',
 //     modelName: 'user',
-//     sequelize,
+//     timestamps: false,
 //   }
 // );

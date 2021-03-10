@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "module": "CommonJS",
-    "allowJs": true,
+    "allowJs": false,
     "target": "ES6"
   },
   "include": ["./src/"]
