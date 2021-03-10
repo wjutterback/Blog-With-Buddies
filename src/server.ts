@@ -27,3 +27,4 @@ sequelize.sync().then(() => {
 });
 
 //TODO: Study more TypeScript
+//TODO: Determine why methods (like SEquelize's .get({plain: true}) fail to be recognized/fix this

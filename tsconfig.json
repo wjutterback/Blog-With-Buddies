@@ -6,11 +6,6 @@
     "allowJs": true,
     "target": "ES6"
   },
-  "include": [
-    "./src**/*",
-    "server.ts",
-    "./routes/routes.ts",
-    "./config/connections.ts"
-  ]
+  "include": ["./src/"]
 }
 //TODO: fix file structure on compile - maybe, rootdir used to control file structure
