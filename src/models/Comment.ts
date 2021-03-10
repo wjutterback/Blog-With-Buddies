@@ -18,7 +18,7 @@ Comment.init(
       primaryKey: true,
     },
     text: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(3000),
       allowNull: false,
     },
     createdAt: {

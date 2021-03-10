@@ -22,7 +22,7 @@ Post.init(
       allowNull: false,
     },
     postText: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(3000),
       allowNull: false,
     },
     createdAt: {
