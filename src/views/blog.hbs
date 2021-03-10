@@ -1,5 +1,7 @@
 <div class="blog">
   <div class="card">
-    <div class="card-body">{{name}}</div>
+    {{#each this}}
+    <div class="row">{{name}}  {{email}}</div>
+    {{/each}}
   </div>
 </div>
