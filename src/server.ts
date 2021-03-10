@@ -7,7 +7,6 @@ import routes from './routes/routes';
 const app = express();
 const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({
-  //TODO: Fix compile so that dist has the views folders found in src
   //TODO: Figure out what's going on with the path/dist folder mix-up
   layoutsDir: path.join(__dirname, '/views/layouts'),
   partialsDir: path.join(__dirname, '/views'),

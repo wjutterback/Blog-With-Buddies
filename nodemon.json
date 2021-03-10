@@ -8,5 +8,8 @@
   "env": {
     "NODE_ENV": "development"
   },
-  "ext": "js,json,ts"
+  "ext": "hbs,js,json,ts",
+  "events": {
+    "restart": "cp -r src/views dist \n cp -r dist"
+  }
 }
