@@ -8,7 +8,6 @@ interface PostAttributes {
   postText: string;
   createdAt: Date;
   updatedAt: Date;
-  user_id: number;
 }
 
 export class Post extends Model<PostAttributes> implements PostAttributes {
@@ -17,9 +16,9 @@ export class Post extends Model<PostAttributes> implements PostAttributes {
   postText!: string;
   createdAt!: Date;
   updatedAt!: Date;
-  user_id!: number;
   public static associations: {
-    user_id: Association<User, Post>;
+    //FK's here
+    userId: Association<Post, User>;
   };
 }
 
@@ -46,11 +45,6 @@ Post.init(
       type: new DataTypes.DATE(),
       allowNull: false,
     },
-    //user FK
-    user_id: {
-      type: new DataTypes.INTEGER,
-      allowNull: false
-    }
   },
   {
     tableName: 'posts',

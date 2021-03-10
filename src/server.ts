@@ -7,7 +7,6 @@ import routes from './routes/routes';
 const app = express();
 const PORT = process.env.PORT || 3030;
 const hbs = exphbs.create({
-  //TODO: Figure out what's going on with the path/dist folder mix-up
   layoutsDir: path.join(__dirname, '/views/layouts'),
   partialsDir: path.join(__dirname, '/views'),
   extname: '.hbs',
@@ -24,5 +23,3 @@ app.use(routes);
 sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 });
-
-//TODO: Study more TypeScript

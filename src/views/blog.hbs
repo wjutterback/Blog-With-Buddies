@@ -1,7 +1,6 @@
-<div class="blog">
-  <div class="card">
-    {{#each this}}
-    <div class="row">{{name}}  {{email}}</div>
-    {{/each}}
-  </div>
+<div class="card" style="width: 18rem;">
+  {{#each this}}
+  <div class="card-title"><a class="Blog-Post">{{postTitle}} Posted At: {{createdAt}}</a></div>
+  //TODO: Click Post in Blog and load post.hbs
+  {{/each}}
 </div>

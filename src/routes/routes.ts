@@ -42,13 +42,23 @@ router.get('/', async (req, res) => {
     );
     console.log(plainPosts);
 
-    const userData: { map: (data) => dbUser } = await User.findAll();
-    const plainUsers: dbUser = userData.map((data) =>
-      data.get({ plain: true })
-    );
-    console.log(plainUsers);
+    res.render('blog', plainPosts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-    res.render('blog', plainUsers);
+router.get('/sign-in', async (req, res) => {
+  try {
+    res.render('signin');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/sign-up', async (req, res) => {
+  try {
+    res.render('signup');
   } catch (err) {
     res.status(500).json(err);
   }

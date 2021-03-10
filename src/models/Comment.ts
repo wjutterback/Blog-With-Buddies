@@ -8,8 +8,6 @@ interface CommentAttributes {
   text: string;
   createdAt: Date;
   updatedAt: Date;
-  user_id: number;
-  post_id: number;
 }
 export class Comment
   extends Model<CommentAttributes>
@@ -18,11 +16,10 @@ export class Comment
   text!: string;
   createdAt!: Date;
   updatedAt!: Date;
-  user_id!: number;
-  post_id!: number;
   public static associations: {
-    user_id: Association<User, Comment>;
-    post_id: Association<Post, Comment>;
+    //FK's here
+    user_id: Association<Comment, User>;
+    post_id: Association<Comment, Post>;
   };
 }
 
@@ -43,16 +40,6 @@ Comment.init(
     },
     updatedAt: {
       type: new DataTypes.DATE(),
-      allowNull: false,
-    },
-    //user FK
-    user_id: {
-      type: new DataTypes.INTEGER(),
-      allowNull: false,
-    },
-    //post FK
-    post_id: {
-      type: new DataTypes.INTEGER(),
       allowNull: false,
     },
   },
