@@ -7,6 +7,7 @@ import { Comment } from '../models/Comment';
 
 //TODO: try to wrap all routes/dry up route code stretch goal
 //TODO: Use controller to pass in arguments/import functions
+//these generics are essentially the Class Models (could bypass generics with Model[], etc.) more for edification
 type dbUser = Array<{
   id: number;
   name: string;
@@ -41,9 +42,7 @@ router.get('/', async (req, res) => {
     );
     console.log(plainPosts);
 
-    const userData: {
-      map: (data) => dbUser;
-    } = await User.findAll();
+    const userData: { map: (data) => dbUser } = await User.findAll();
     const plainUsers: dbUser = userData.map((data) =>
       data.get({ plain: true })
     );
