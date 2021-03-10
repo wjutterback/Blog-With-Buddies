@@ -7,7 +7,7 @@ import { Comment } from '../models/Comment';
 
 //TODO: try to wrap all routes/dry up route code stretch goal
 //TODO: Use controller to pass in arguments/import functions
-//these generics are essentially the Class Models (could bypass generics with Model[], etc.) more for edification
+//these types are essentially the Class Models (could bypass type usage with Model[], etc.) more for edification
 type dbUser = Array<{
   id: number;
   name: string;

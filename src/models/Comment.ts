@@ -1,13 +1,29 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Association } from 'sequelize';
 import { sequelize } from '../config/connection';
+import { User } from './User';
+import { Post } from './Post';
 
-export class Comment extends Model {
+interface CommentAttributes {
+  id: number;
+  text: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user_id: number;
+  post_id: number;
+}
+export class Comment
+  extends Model<CommentAttributes>
+  implements CommentAttributes {
   id!: number;
   text!: string;
   createdAt!: Date;
   updatedAt!: Date;
-  userId!: number;
-  postId!: number;
+  user_id!: number;
+  post_id!: number;
+  public static associations: {
+    user_id: Association<User, Comment>;
+    post_id: Association<Post, Comment>;
+  };
 }
 
 Comment.init(
@@ -29,15 +45,15 @@ Comment.init(
       type: new DataTypes.DATE(),
       allowNull: false,
     },
-    userId: {
+    //user FK
+    user_id: {
       type: new DataTypes.INTEGER(),
       allowNull: false,
-      //user FK
     },
-    postId: {
+    //post FK
+    post_id: {
       type: new DataTypes.INTEGER(),
       allowNull: false,
-      //post FK
     },
   },
   {
@@ -45,5 +61,9 @@ Comment.init(
     modelName: 'comment',
     sequelize,
     timestamps: true,
+    underscored: true,
   }
 );
+
+Comment.belongsTo(User);
+Comment.belongsTo(Post);

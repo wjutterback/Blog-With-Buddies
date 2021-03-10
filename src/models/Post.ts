@@ -1,13 +1,26 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Association } from 'sequelize';
 import { sequelize } from '../config/connection';
+import { User } from './User';
 
-export class Post extends Model {
+interface PostAttributes {
+  id: number;
+  postTitle: string;
+  postText: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user_id: number;
+}
+
+export class Post extends Model<PostAttributes> implements PostAttributes {
   id!: number;
   postTitle!: string;
   postText!: string;
   createdAt!: Date;
   updatedAt!: Date;
-  // userId!: number; potentially will need this if userPosts can't be made to work
+  user_id!: number;
+  public static associations: {
+    user_id: Association<User, Post>;
+  };
 }
 
 Post.init(
@@ -33,15 +46,19 @@ Post.init(
       type: new DataTypes.DATE(),
       allowNull: false,
     },
-    // userId: {
-    //   type: new DataTypes.INTEGER,
-    //   allowNull: false,
-    // },
+    //user FK
+    user_id: {
+      type: new DataTypes.INTEGER,
+      allowNull: false
+    }
   },
   {
     tableName: 'posts',
     modelName: 'post',
     sequelize,
     timestamps: true,
+    underscored: true,
   }
 );
+
+Post.belongsTo(User);

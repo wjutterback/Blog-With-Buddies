@@ -1,7 +1,6 @@
 import { sequelize } from '../config/connection';
 import { Model, DataTypes, Association } from 'sequelize';
 import { Post } from './Post';
-import { Comment } from './Comment';
 
 interface UserAttributes {
   id: number;
@@ -15,10 +14,6 @@ export class User extends Model<UserAttributes> implements UserAttributes {
   public name!: string;
   public email!: string;
   public password!: string;
-  public static associations: {
-    comments: Association<User, Comment>;
-    posts: Association<User, Post>;
-  };
   // not going to implement these yet - might not need them: example from documentation
   // public getProjects!: HasManyGetAssociationsMixin<Project>; // Note the null assertions!
   // public addProject!: HasManyAddAssociationMixin<Project, number>;
