@@ -12,19 +12,19 @@ Post.init(
       primaryKey: true,
     },
     postTitle: {
-      type: new DataTypes.STRING(),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     postText: {
-      type: new DataTypes.STRING(),
+      type: DataTypes.STRING(4000),
       allowNull: false,
     },
     createdAt: {
-      type: new DataTypes.DATE(),
+      type: DataTypes.DATE,
       allowNull: false,
     },
     updatedAt: {
-      type: new DataTypes.DATE(),
+      type: DataTypes.DATE,
       allowNull: false,
     },
   },

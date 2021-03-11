@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const User = require('../models/User')
+const User = require('../models/User');
 const { getAllPosts, getSinglePost } = require('../controllers/controllers');
 
 // const commentData = await Comment.findAll();
@@ -73,7 +73,7 @@ router.get('/sign-up', async (req, res) => {
 router.post('/sign-up', async (req, res) => {
   try {
     const dbUserData = await User.create({
-      username: req.body.name,
+      name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });

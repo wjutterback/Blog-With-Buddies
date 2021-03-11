@@ -13,15 +13,15 @@ Comment.init(
       primaryKey: true,
     },
     text: {
-      type: new DataTypes.STRING(),
+      type: DataTypes.STRING(4000),
       allowNull: false,
     },
     createdAt: {
-      type: new DataTypes.DATE(),
+      type: DataTypes.DATE,
       allowNull: false,
     },
     updatedAt: {
-      type: new DataTypes.DATE(),
+      type: DataTypes.DATE,
       allowNull: false,
     },
   },
