@@ -12,8 +12,8 @@ const getAllPosts = (req, res) => {
 const getSinglePost = (req, res) => {
   const id = req.params.id;
   Post.findByPk(id).then((postData) => {
-    console.log(plainPosts);
-    res.render('blog', plainPosts);
+    const plainPosts = postData.get({ plain: true });
+    res.render('post', plainPosts);
   });
 };
 

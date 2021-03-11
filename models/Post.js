@@ -12,11 +12,11 @@ Post.init(
       primaryKey: true,
     },
     postTitle: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(),
       allowNull: false,
     },
     postText: {
-      type: new DataTypes.STRING(3000),
+      type: new DataTypes.STRING(),
       allowNull: false,
     },
     createdAt: {
