@@ -1,27 +1,9 @@
-import { DataTypes, Model, Association } from 'sequelize';
+import { DataTypes, Model} from 'sequelize';
 import { sequelize } from '../config/connection';
 import { User } from './User';
 import { Post } from './Post';
 
-interface CommentAttributes {
-  id: number;
-  text: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-export class Comment
-  extends Model<CommentAttributes>
-  implements CommentAttributes {
-  id!: number;
-  text!: string;
-  createdAt!: Date;
-  updatedAt!: Date;
-  public static associations: {
-    //FK's here - created on last line of file
-    user_id: Association<Comment, User>;
-    post_id: Association<Comment, Post>;
-  };
-}
+export class Comment extends Model{}
 
 Comment.init(
   {
@@ -31,7 +13,7 @@ Comment.init(
       primaryKey: true,
     },
     text: {
-      type: new DataTypes.STRING(3000),
+      type: new DataTypes.STRING(),
       allowNull: false,
     },
     createdAt: {

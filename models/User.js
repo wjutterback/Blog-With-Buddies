@@ -1,19 +1,7 @@
 import { sequelize } from '../config/connection';
 import { Model, DataTypes } from 'sequelize';
 
-interface UserAttributes {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-}
-
-export class User extends Model<UserAttributes> implements UserAttributes {
-  public id!: number;
-  public name!: string;
-  public email!: string;
-  public password!: string;
-}
+export class User extends Model {}
 
 User.init(
   {
@@ -23,15 +11,15 @@ User.init(
       primaryKey: true,
     },
     name: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(),
       allowNull: false,
     },
     email: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(),
       allowNull: false,
     },
     password: {
-      type: new DataTypes.STRING(128),
+      type: new DataTypes.STRING(),
       allowNull: false,
     },
   },
