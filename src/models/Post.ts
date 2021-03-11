@@ -17,7 +17,7 @@ export class Post extends Model<PostAttributes> implements PostAttributes {
   createdAt!: Date;
   updatedAt!: Date;
   public static associations: {
-    //FK's here
+    //FK's here - created on last line of file
     userId: Association<Post, User>;
   };
 }

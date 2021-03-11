@@ -17,7 +17,7 @@ export class Comment
   createdAt!: Date;
   updatedAt!: Date;
   public static associations: {
-    //FK's here
+    //FK's here - created on last line of file
     user_id: Association<Comment, User>;
     post_id: Association<Comment, Post>;
   };
