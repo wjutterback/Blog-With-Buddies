@@ -1,7 +1,7 @@
-import { sequelize } from '../config/connection';
-import { Model, DataTypes } from 'sequelize';
+const sequelize  = require('../config/connection');
+const { Model, DataTypes } = require('sequelize');
 
-export class User extends Model {}
+class User extends Model {}
 
 User.init(
   {
@@ -30,3 +30,5 @@ User.init(
     timestamps: false,
   }
 );
+
+module.exports = User;

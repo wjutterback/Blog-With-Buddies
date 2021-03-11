@@ -1,7 +1,7 @@
-import { DataTypes, Model} from 'sequelize';
-import { sequelize } from '../config/connection';
-import { User } from './User';
-import { Post } from './Post';
+const { DataTypes, Model} = require('sequelize');
+const { sequelize } = require('../config/connection');
+const { User } = require('./User');
+const { Post } = require('./Post');
 
 export class Comment extends Model{}
 

@@ -1,7 +1,7 @@
-import * as express from 'express';
-import * as path from 'path';
+const express = require('express');
+const path = require('path');
 const router = express.Router();
-import { getAllPosts, getSinglePost } from '../controllers/controllers';
+const { getAllPosts, getSinglePost } = require('../controllers/controllers');
 
 // const commentData = await Comment.findAll();
 
@@ -37,4 +37,4 @@ router.post('/sign-up', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

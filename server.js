@@ -1,8 +1,8 @@
-import * as path from 'path';
-import * as express from 'express';
-import * as exphbs from 'express-handlebars';
-import { sequelize } from './config/connection';
-import routes from './routes/routes';
+const path = require('path');
+const express = require('express');
+const exphbs = require('express-handlebars');
+const sequelize = require('./config/connection');
+const routes = require('./routes/routes');
 
 const app = express();
 const PORT = process.env.PORT || 3030;

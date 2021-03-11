@@ -1,26 +1,8 @@
-import { DataTypes, Model, Association } from 'sequelize';
-import { sequelize } from '../config/connection';
-import { User } from './User';
+const { DataTypes, Model } = require('sequelize');
+const sequelize  = require('../config/connection');
+const User  = require('./User');
 
-interface PostAttributes {
-  id: number;
-  postTitle: string;
-  postText: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export class Post extends Model<PostAttributes> implements PostAttributes {
-  id!: number;
-  postTitle!: string;
-  postText!: string;
-  createdAt!: Date;
-  updatedAt!: Date;
-  public static associations: {
-    //FK's here - created on last line of file
-    userId: Association<Post, User>;
-  };
-}
+class Post extends Model {}
 
 Post.init(
   {
@@ -56,3 +38,5 @@ Post.init(
 );
 
 Post.belongsTo(User);
+
+module.exports = Post;
