@@ -6,7 +6,6 @@ const Comment = require('../models/Comment');
 const getAllPosts = (req, res) => {
   Post.findAll({ include: [{ model: User }] }).then((postData) => {
     const plainPosts = postData.map((data) => data.get({ plain: true }));
-    console.log(plainPosts);
     res.render('blog', { plainPosts, loggedIn: req.session.loggedIn });
   });
 };

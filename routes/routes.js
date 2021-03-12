@@ -125,19 +125,22 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/dash', async (req, res) => {
-  const getUserPosts = await Post.findAll({
-    include: [{ model: User }],
-    where: {
-      user_id: req.session.userId,
-    },
-  });
-  const plainPosts = getUserPosts.map((data) => data.get({ plain: true }));
-  console.log(plainPosts);
-  res.render('dash', {
-    plainPosts,
-    loggedIn: req.session.loggedIn,
-    userId: req.session.userId,
-  });
+  try {
+    const getUserPosts = await Post.findAll({
+      include: [{ model: User }],
+      where: {
+        user_id: req.session.userId,
+      },
+    });
+    const plainPosts = getUserPosts.map((data) => data.get({ plain: true }));
+    res.render('dash', {
+      plainPosts,
+      loggedIn: req.session.loggedIn,
+      userId: req.session.userId,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.post('/dash', async (req, res) => {
@@ -153,10 +156,9 @@ router.post('/dash', async (req, res) => {
   }
 });
 
-router.get('/postnew', async (req, res) => {
-  try {
-    res.render('postnew', { loggedIn: req.session.loggedIn });
-  } catch (err) {}
+router.get('/postnew', (req, res) => {
+  res.render('postnew', { loggedIn: req.session.loggedIn });
+  res.status(500).json(err);
 });
 
 router.get('/edit/:id', async (req, res) => {
