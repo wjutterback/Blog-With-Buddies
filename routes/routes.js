@@ -1,6 +1,4 @@
-const express = require('express');
-const path = require('path');
-const router = express.Router();
+const router = require('express').Router();
 const User = require('../models/User');
 const { getAllPosts, getSinglePost } = require('../controllers/controllers');
 
@@ -28,14 +26,14 @@ router.post('/sign-in', async (req, res) => {
   try {
     const dbUserData = await User.findOne({
       where: {
-        email: req.body.email,
+        name: req.body.name,
       },
     });
 
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
@@ -44,16 +42,17 @@ router.post('/sign-in', async (req, res) => {
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+        .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
 
     req.session.save(() => {
       req.session.loggedIn = true;
-
-      res
-        .status(200)
-        .json({ user: dbUserData, message: 'You are now logged in!' });
+      res.status(200).json({
+        user: dbUserData,
+        message: 'You are now logged in!',
+        loggedIn: req.session.loggedIn,
+      });
     });
   } catch (err) {
     console.log(err);
@@ -72,17 +71,25 @@ router.get('/sign-up', async (req, res) => {
 // CREATE new user
 router.post('/sign-up', async (req, res) => {
   try {
-    const dbUserData = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
+    const dbUserData = await User.findOne({
+      where: {
+        name: req.body.name,
+      },
     });
+    if (!dbUserData) {
+      const dbUserData = await User.create({
+        name: req.body.name,
+        password: req.body.password,
+      });
+      req.session.save(() => {
+        req.session.loggedIn = true;
 
-    req.session.save(() => {
-      req.session.loggedIn = true;
-
-      res.status(200).json(dbUserData);
-    });
+        res.status(200).json(dbUserData);
+      });
+    } else {
+      res.status(400).json({ message: 'Username taken! Please use another' });
+      return;
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -99,5 +106,7 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+router.get('/dash', (req, res) => {});
 
 module.exports = router;

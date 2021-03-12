@@ -1,32 +1,61 @@
 //TODO: Failed Login Div Box
-function login(email, pw) {
-  $.ajax({
-    url: '/sign-in',
+
+async function login(name, password) {
+  const response = await fetch('/sign-in', {
     method: 'POST',
-    data: { email: email, pw: pw },
-    success: document.location.replace('/'),
-    error: console.log(error, 'error'),
-    dataType: json,
+    body: JSON.stringify({ name, password }),
+    headers: { 'Content-Type': 'application/json' },
   });
+
+  if (response.ok) {
+    document.location.replace('/');
+  } else {
+    response.json().then((json) => {
+      $('#error').text(json.message);
+    });
+  }
 }
 
-function signup(name, email, password) {
-  $.ajax({
-    url: '/sign-up',
+async function signup(name, password) {
+  const response = await fetch('/sign-up', {
     method: 'POST',
-    data: { name: name, email: email, password: password },
-    success: document.location.replace('/'),
-    error: console.log(error, 'error'),
-    dataType: json,
+    body: JSON.stringify({ name, password }),
+    headers: { 'Content-Type': 'application/json' },
   });
+
+  if (response.ok) {
+    document.location.replace('/');
+  } else {
+    response.json().then((json) => {
+      $('#error').text(json.message);
+    });
+  }
 }
+
+const logout = async () => {
+  const response = await fetch('/logout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    document.location.replace('/');
+  } else {
+    alert('Failed to log out.');
+  }
+};
 
 $('#signIn').on('click', function (event) {
   event.preventDefault();
-  login($('#email').val(), $('#pw').val());
+  login($('#id').val(), $('#pw').val());
 });
 
 $('#createAccount').on('click', function (event) {
   event.preventDefault();
-  signup($('#id').val(), $('#email').val(), $('#pw').val());
+  signup($('#id').val(), $('#pw').val());
+});
+
+$('#logout').on('click', function (event) {
+  event.preventDefault();
+  logout();
 });

@@ -15,7 +15,7 @@ const hbs = exphbs.create({
 });
 
 const sess = {
-  secret: 'password',
+  secret: 'sdg3tsbvs',
   cookie: {},
   resave: false,
   saveUninitialized: true,
@@ -23,17 +23,17 @@ const sess = {
     db: sequelize,
   }),
 };
-app.use(session(sess));
 
+app.use(session(sess));
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(routes);
-
 app.use(express.static('public'));
+
+app.use(routes);
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
