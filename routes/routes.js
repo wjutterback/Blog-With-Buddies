@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const Post = require('../models/Post');
 const { getAllPosts, getSinglePost } = require('../controllers/controllers');
 
 // const commentData = await Comment.findAll();
@@ -48,10 +49,12 @@ router.post('/sign-in', async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userId = dbUserData.id;
       res.status(200).json({
         user: dbUserData,
         message: 'You are now logged in!',
         loggedIn: req.session.loggedIn,
+        userId: req.session.userId,
       });
     });
   } catch (err) {
@@ -77,21 +80,20 @@ router.post('/sign-up', async (req, res) => {
       },
     });
     if (!dbUserData) {
-      const dbUserData = await User.create({
+      const userCreate = await User.create({
         name: req.body.name,
         password: req.body.password,
       });
       req.session.save(() => {
         req.session.loggedIn = true;
-
-        res.status(200).json(dbUserData);
+        req.session.userId = userCreate.id;
+        res.status(200).json(userCreate);
       });
     } else {
       res.status(400).json({ message: 'Username taken! Please use another' });
       return;
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -107,6 +109,25 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.get('/dash', (req, res) => {});
+router.get('/dash', (req, res) => {
+  res.render('dash', {
+    loggedIn: req.session.loggedIn,
+    userId: req.session.userId,
+  });
+});
+
+router.post('/dash', async (req, res) => {
+  console.log(req.session.userId);
+  try {
+    const postCreate = await Post.create({
+      postTitle: req.body.post_title,
+      postText: req.body.post_text,
+      user_id: req.session.userId,
+    });
+    res.status(200).json({ postCreate, message: 'Your post has been created' });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

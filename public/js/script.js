@@ -32,6 +32,19 @@ async function signup(name, password) {
   }
 }
 
+const createPost = async (post_title, post_text) => {
+  const response = await fetch('/dash', {
+    method: 'POST',
+    body: JSON.stringify({ post_title, post_text }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) {
+    document.location.replace('/');
+  } else {
+    alert('Failed to create post');
+  }
+};
+
 const logout = async () => {
   const response = await fetch('/logout', {
     method: 'POST',
@@ -58,4 +71,9 @@ $('#createAccount').on('click', function (event) {
 $('#logout').on('click', function (event) {
   event.preventDefault();
   logout();
+});
+
+$('#createPost').on('click', function (event) {
+  event.preventDefault();
+  createPost($('#postTitle').val(), $('#postText').val());
 });
