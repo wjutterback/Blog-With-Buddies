@@ -37,7 +37,7 @@ const createPost = async (post_title, post_text) => {
     headers: { 'Content-Type': 'application/json' },
   });
   if (response.ok) {
-    document.location.replace('/');
+    document.location.reload();
   } else {
     alert('Failed to create post');
   }
