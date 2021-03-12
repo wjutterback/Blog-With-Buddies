@@ -50,7 +50,6 @@ const logout = async () => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
-
   if (response.ok) {
     document.location.replace('/');
   } else {

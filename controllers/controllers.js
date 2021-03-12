@@ -1,8 +1,9 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 //const postData: { map: (data: Object) => dbPost } = await
 const getAllPosts = (req, res) => {
-  Post.findAll().then((postData) => {
+  Post.findAll({ include: [{ model: User }] }).then((postData) => {
     const plainPosts = postData.map((data) => data.get({ plain: true }));
     console.log(plainPosts);
     res.render('blog', { plainPosts, loggedIn: req.session.loggedIn });
@@ -11,7 +12,10 @@ const getAllPosts = (req, res) => {
 
 const getSinglePost = (req, res) => {
   const id = req.params.id;
-  Post.findByPk(id).then((postData) => {
+  Post.findOne({
+    include: [{ model: User }],
+    where: { id: id },
+  }).then((postData) => {
     const plainPosts = postData.get({ plain: true });
     res.render('post', { plainPosts, loggedIn: req.session.loggedIn });
   });
