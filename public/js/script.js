@@ -1,5 +1,3 @@
-//TODO: Failed Login Div Box
-
 async function login(name, password) {
   const response = await fetch('/sign-in', {
     method: 'POST',
@@ -45,6 +43,19 @@ const createPost = async (post_title, post_text) => {
   }
 };
 
+const createComment = async (commentText, postId) => {
+  const response = await fetch(`/post/${postId}`, {
+    method: 'POST',
+    body: JSON.stringify({ commentText }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) {
+    document.location.reload();
+  } else {
+    alert('Failed to create comment');
+  }
+};
+
 const logout = async () => {
   const response = await fetch('/logout', {
     method: 'POST',
@@ -58,21 +69,21 @@ const logout = async () => {
 };
 
 $('#signIn').on('click', function (event) {
-  event.preventDefault();
   login($('#id').val(), $('#pw').val());
 });
 
 $('#createAccount').on('click', function (event) {
-  event.preventDefault();
   signup($('#id').val(), $('#pw').val());
 });
 
 $('#logout').on('click', function (event) {
-  event.preventDefault();
   logout();
 });
 
 $('#createPost').on('click', function (event) {
-  event.preventDefault();
   createPost($('#postTitle').val(), $('#postText').val());
+});
+
+$('#createComment').on('click', function (event) {
+  createComment($('#commentText').val(), $('#postid').attr('data-id'));
 });

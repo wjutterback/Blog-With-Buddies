@@ -27,7 +27,7 @@ const sess = {
 };
 
 app.use(session(sess));
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
@@ -39,3 +39,6 @@ app.use(routes);
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 });
+
+//TODO: Conditionalize posts to see if current user is author and provide option to edit
+//TODO: Not Logged In message / Sign In option etc.

@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 
 //const postData: { map: (data: Object) => dbPost } = await
 const getAllPosts = (req, res) => {
@@ -17,7 +18,17 @@ const getSinglePost = (req, res) => {
     where: { id: id },
   }).then((postData) => {
     const plainPosts = postData.get({ plain: true });
-    res.render('post', { plainPosts, loggedIn: req.session.loggedIn });
+    Comment.findAll({
+      include: [{ model: User, Post }],
+      where: { post_id: id },
+    }).then((commentData) => {
+      const commentsPost = commentData.map((data) => data.get({ plain: true }));
+      res.render('post', {
+        plainPosts,
+        loggedIn: req.session.loggedIn,
+        commentsPost,
+      });
+    });
   });
 };
 

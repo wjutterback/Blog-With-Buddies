@@ -1,5 +1,5 @@
   {{#if loggedIn}}
-<div class="card ml-2 mr-5 mx-auto" style="width: 90vw">
+<div class="card ml-2 mr-5 mx-auto" style="width: 90vw" id="postid" data-id="{{plainPosts.id}}">
   <div class="card-title mb-0" style="background-color: beige; font-size: 22px">
     {{ plainPosts.postTitle }}
     <div class="float-right">
@@ -7,8 +7,25 @@
     </div>
   </div>
   <div class="card-body" style="background-color: bisque">{{ plainPosts.postText }}</div>
+</div>
+{{#each commentsPost}}
+<div class="card ml-2 mr-5 mx-auto" style="width: 80vw">
+  <div class="card-body" style="background-color: bisque">{{ this.text }}    <div class="float-right">
+      Posted by {{ this.user.name }} on {{format_date this.createdAt}}
+    </div></div>
+</div>
+{{/each}}
+  <div class="container">
+<div class="mb-3">
+  <label for="commentText" class="form-label">Leave a comment:</label>
+  <textarea class="form-control" id="commentText" rows="3"></textarea>
+</div>
+<div class="text-center">
+<button class="btn btn-primary" id="createComment">Create New Comment +</button>
+</div>
+</div>
   {{else}}
   <div class="card-title">Unauthorized Access</div>
   <p class="card-text">You need to sign in first</p>
   {{/if}}
-</div>
+

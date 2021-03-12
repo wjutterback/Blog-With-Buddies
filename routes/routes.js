@@ -1,9 +1,8 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 const { getAllPosts, getSinglePost } = require('../controllers/controllers');
-
-// const commentData = await Comment.findAll();
 
 router.get('/', (req, res) => {
   getAllPosts(req, res);
@@ -11,6 +10,22 @@ router.get('/', (req, res) => {
 
 router.get('/post/:id', (req, res) => {
   getSinglePost(req, res);
+});
+
+router.post('/post/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const newComment = await Comment.create({
+      text: req.body.commentText,
+      user_id: req.session.userId,
+      post_id: id,
+    });
+    res
+      .status(200)
+      .json({ newComment, message: 'Your comment has been posted' });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //Login page
@@ -117,7 +132,6 @@ router.get('/dash', (req, res) => {
 });
 
 router.post('/dash', async (req, res) => {
-  console.log(req.session.userId);
   try {
     const postCreate = await Post.create({
       postTitle: req.body.post_title,
