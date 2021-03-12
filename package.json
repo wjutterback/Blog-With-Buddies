@@ -8,7 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wjutterback/MVC-Tech-Blog.git"
+    "url": "git+https://github.com/wjutterback/MVC-Tech-Blog.git",
+    "start": "nodemon server.js"
   },
   "keywords": [
     "MVC-Tech-Blog"
