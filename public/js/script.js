@@ -37,7 +37,7 @@ const createPost = async (post_title, post_text) => {
     headers: { 'Content-Type': 'application/json' },
   });
   if (response.ok) {
-    document.location.reload();
+    document.location.replace('/dash');
   } else {
     alert('Failed to create post');
   }
@@ -53,6 +53,17 @@ const createComment = async (commentText, postId) => {
     document.location.reload();
   } else {
     alert('Failed to create comment');
+  }
+};
+
+const editComment = async (updateTitle, updateText, postId) => {
+  const response = await fetch(`/edit/${postId}`, {
+    method: 'PUT',
+    body: JSON.stringify({ updateTitle, updateText }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) {
+    document.location.replace('/dash');
   }
 };
 
@@ -86,4 +97,12 @@ $('#createPost').on('click', function (event) {
 
 $('#createComment').on('click', function (event) {
   createComment($('#commentText').val(), $('#postid').attr('data-id'));
+});
+
+$('#edit').on('click', function (event) {
+  editComment(
+    $('#commentTitle').text(),
+    $('#commentText').text(),
+    $('#postid').attr('data-id')
+  );
 });

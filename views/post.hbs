@@ -1,27 +1,27 @@
   {{#if loggedIn}}
-<div class="card ml-2 mr-5 mx-auto" style="width: 90vw" id="postid" data-id="{{plainPosts.id}}">
-  <div class="card-title mb-0" style="background-color: beige; font-size: 22px">
+<div class="card mb-2 mx-auto posts" id="postid" data-id="{{plainPosts.id}}">
+  <div class="card-title mb-0 pl-2">
     {{ plainPosts.postTitle }}
     <div class="float-right">
       Posted by {{ plainPosts.user.name }} on {{format_date plainPosts.createdAt}}
     </div>
   </div>
-  <div class="card-body" style="background-color: bisque">{{ plainPosts.postText }}</div>
+  <div class="card-body">{{ plainPosts.postText }}</div>
 </div>
 {{#each commentsPost}}
-<div class="card ml-2 mr-5 mx-auto" style="width: 80vw">
-  <div class="card-body" style="background-color: bisque">{{ this.text }}    <div class="float-right">
+<div class="card mb-2 mx-auto posts" style="width: 80vw">
+  <div class="card-body">{{ this.text }}    <div class="float-right date">
       Posted by {{ this.user.name }} on {{format_date this.createdAt}}
     </div></div>
 </div>
 {{/each}}
-  <div class="container">
+  <div class="container mt-2" style="border:6px solid #003366; background-color: rgb(201, 200, 200); width: 50vw">
 <div class="mb-3">
-  <label for="commentText" class="form-label">Leave a comment:</label>
+  <label for="commentText" class="form-label" style="font-size: 22px;">Leave a comment:</label>
   <textarea class="form-control" id="commentText" rows="3"></textarea>
 </div>
 <div class="text-center">
-<button class="btn btn-primary" id="createComment">Create New Comment +</button>
+<button class="btn btn-primary mb-2" id="createComment">Create New Comment +</button>
 </div>
 </div>
   {{else}}

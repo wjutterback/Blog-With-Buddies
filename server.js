@@ -40,5 +40,4 @@ sequelize.sync().then(() => {
   app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 });
 
-//TODO: Conditionalize posts to see if current user is author and provide option to edit
-//TODO: Not Logged In message / Sign In option etc.
+//TODO: Not Logged In message / Sign In option div position/overhaul styling

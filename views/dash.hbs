@@ -1,27 +1,16 @@
 {{#if loggedIn}}
-  <div class="d-flex justify-content-center" style="font-size: 30px;">My Posts:</div>
-<div class="card mx-auto" style="width: 90vw">
+    <div class="text-center mt-3 mb-3">
+  <a href="/postnew" ><button class="btn btn-primary">Create New Post +</button></a>
+</div>
   {{#each plainPosts}}
-  <div class="card-title mb-0" style="background-color: beige; font-size: 22px">
-    <a class="Blog-Post" href="/post/{{ this.id }}">{{ this.postTitle }}</a>
-    <div class="float-right">
+<div class="card mx-auto mb-2 posts">
+  <div class="card-title mb-0">
+    <a href="/edit/{{ this.id }}">{{ this.postTitle }}</a>
+    <div class="float-right date">
       Posted by {{ this.user.name }} on {{format_date this.createdAt}}
     </div>
   </div>
-  <div class="card-body" style="background-color: bisque">{{ postText }}</div>
+  <div class="card-body">{{ postText }}</div>
+</div>
   {{/each}}
-</div>
-<div class="container">
-<div class="mb-3">
-  <label for="postTitle" class="form-label">Post Title</label>
-  <input type="text" class="form-control" id="postTitle" placeholder="Post Title">
-</div>
-<div class="mb-3">
-  <label for="postText" class="form-label">Post Text</label>
-  <textarea class="form-control" id="postText" rows="3"></textarea>
-</div>
-<div class="text-center">
-<button class="btn btn-primary" id="createPost">Create New Post +</button>
-</div>
-</div>
 {{/if}}

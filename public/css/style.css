@@ -1,0 +1,19 @@
+.posts {
+  width: 90vw;
+  border: 3px solid #003366;
+}
+.card-title {
+  background-color: beige;
+  font-size: 22px;
+}
+a {
+  color: #1e4f70;
+  padding-left: 0.5rem;
+}
+.card-body {
+  background-color: bisque;
+}
+
+.date {
+  padding-right: 0.5rem;
+}

@@ -1,0 +1,13 @@
+  {{#if loggedIn}}
+<div class="card mb-2 mx-auto posts" id="postid" data-id="{{plainPosts.id}}">
+  <div class="card-title mb-0 pl-2 d-inline float-left">
+    <div class="d-inline" id="commentTitle" contenteditable="true">{{ plainPosts.postTitle }}</div>
+    <div class="float-right d-inline">
+      Posted by {{ plainPosts.user.name }} on {{format_date plainPosts.createdAt}}
+    </div>
+    </div>
+  <div class="card-body" id="commentText" contenteditable="true">{{ plainPosts.postText }}</div>
+</div>
+<div class="text-center"><button class="btn btn-primary" id="edit">Update Post</button></div>
+
+{{/if}}

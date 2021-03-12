@@ -151,4 +151,42 @@ router.post('/dash', async (req, res) => {
   }
 });
 
+router.get('/postnew', async (req, res) => {
+  try {
+    res.render('postnew', { loggedIn: req.session.loggedIn });
+  } catch (err) {}
+});
+
+router.get('/edit/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    Post.findOne({
+      where: { id: id },
+    }).then((postData) => {
+      const plainPosts = postData.get({ plain: true });
+      console.log(plainPosts);
+      res.render('edit', {
+        plainPosts,
+        loggedIn: req.session.loggedIn,
+      });
+    });
+  } catch (err) {}
+});
+
+router.put('/edit/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    Post.update(
+      {
+        postTitle: req.body.updateTitle,
+        postText: req.body.updateText,
+      },
+      { where: { id: id } }
+    ).then((response) => {
+      console.log(response);
+      res.status(200).json({ message: 'Your post has been updated' });
+    });
+  } catch (err) {}
+});
+
 module.exports = router;

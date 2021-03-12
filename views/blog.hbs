@@ -1,11 +1,11 @@
-<div class="card mx-auto" style="width: 90vw">
   {{#each plainPosts}}
-  <div class="card-title mb-0" style="background-color: beige; font-size: 22px">
-    <a class="Blog-Post" href="/post/{{ id }}">{{ postTitle }}</a>
-    <div class="float-right">
+  <div class="card mx-auto mb-2 posts">
+  <div class="card-title mb-0">
+    <a href="/post/{{ id }}">{{ postTitle }}</a>
+    <div class="float-right date">
       Posted by {{ user.name }} on {{format_date createdAt}}
     </div>
   </div>
-  <div class="card-body" style="background-color: bisque">{{ postText }}</div>
-  {{/each}}
+  <div class="card-body">{{ postText }}</div>
 </div>
+  {{/each}}

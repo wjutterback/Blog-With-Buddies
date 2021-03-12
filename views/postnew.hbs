@@ -1,0 +1,18 @@
+{{#if loggedIn}}
+<div class="jumbotron mx-auto mt-5" style="width: 50vw; border:10px solid #003366">
+<div class="mb-3">
+  <label for="postTitle" class="form-label">Post Title</label>
+  <input type="text" class="form-control" id="postTitle" placeholder="Post Title">
+</div>
+<div class="mb-3">
+  <label for="postText" class="form-label">Post Text</label>
+  <textarea class="form-control" id="postText" rows="3"></textarea>
+</div>
+<div class="text-center">
+<button class="btn btn-primary" id="createPost">Create New Post +</button>
+</div>
+</div>
+{{else}}
+  <div class="card-title">Unauthorized Access</div>
+  <p class="card-text">You need to sign in first</p>
+{{/if}}
