@@ -64,6 +64,20 @@ const editComment = async (updateTitle, updateText, postId) => {
   });
   if (response.ok) {
     document.location.replace('/dash');
+  } else {
+    alert('Failed to create comment');
+  }
+};
+
+const deletePost = async (postId) => {
+  const response = await fetch(`/edit/${postId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) {
+    document.location.replace('/dash');
+  } else {
+    alert('Failed to create comment');
   }
 };
 
@@ -80,29 +94,40 @@ const logout = async () => {
 };
 
 $('#signIn').on('click', function (event) {
+  event.preventDefault();
   login($('#id').val(), $('#pw').val());
 });
 
 $('#createAccount').on('click', function (event) {
+  event.preventDefault();
   signup($('#id').val(), $('#pw').val());
 });
 
 $('#logout').on('click', function (event) {
+  event.preventDefault();
   logout();
 });
 
 $('#createPost').on('click', function (event) {
+  event.preventDefault();
   createPost($('#postTitle').val(), $('#postText').val());
 });
 
 $('#createComment').on('click', function (event) {
+  event.preventDefault();
   createComment($('#commentText').val(), $('#postid').attr('data-id'));
 });
 
 $('#edit').on('click', function (event) {
+  event.preventDefault();
   editComment(
     $('#commentTitle').text(),
     $('#commentText').text(),
     $('#postid').attr('data-id')
   );
+});
+
+$('#delete').on('click', function (event) {
+  event.preventDefault();
+  deletePost($('#postid').attr('data-id'));
 });

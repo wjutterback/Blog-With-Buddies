@@ -126,11 +126,13 @@ router.post('/logout', (req, res) => {
 
 router.get('/dash', async (req, res) => {
   const getUserPosts = await Post.findAll({
+    include: [{ model: User }],
     where: {
       user_id: req.session.userId,
     },
   });
   const plainPosts = getUserPosts.map((data) => data.get({ plain: true }));
+  console.log(plainPosts);
   res.render('dash', {
     plainPosts,
     loggedIn: req.session.loggedIn,
@@ -161,6 +163,7 @@ router.get('/edit/:id', async (req, res) => {
   try {
     const id = req.params.id;
     Post.findOne({
+      include: [{ model: User }],
       where: { id: id },
     }).then((postData) => {
       const plainPosts = postData.get({ plain: true });
@@ -183,8 +186,16 @@ router.put('/edit/:id', async (req, res) => {
       },
       { where: { id: id } }
     ).then((response) => {
-      console.log(response);
       res.status(200).json({ message: 'Your post has been updated' });
+    });
+  } catch (err) {}
+});
+
+router.delete('/edit/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    Post.destroy({ where: { id: id } }).then(() => {
+      res.status(200).json({ message: 'Your post has been deleted' });
     });
   } catch (err) {}
 });
