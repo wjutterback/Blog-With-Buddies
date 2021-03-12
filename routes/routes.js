@@ -12,29 +12,20 @@ router.get('/post/:id', (req, res) => {
   getSinglePost(req, res);
 });
 
-router.post('/post/:id', async (req, res) => {
+router.post('/post/:id', (req, res) => {
   const id = req.params.id;
-  try {
-    const newComment = await Comment.create({
-      text: req.body.commentText,
-      user_id: req.session.userId,
-      post_id: id,
-    });
-    res
-      .status(200)
-      .json({ newComment, message: 'Your comment has been posted' });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  Comment.create({
+    text: req.body.commentText,
+    user_id: req.session.userId,
+    post_id: id,
+  }).then(() => {
+    res.status(200).send();
+  });
 });
 
 //Login page
-router.get('/sign-in', async (req, res) => {
-  try {
-    res.render('signin');
-  } catch (err) {
-    res.status(500).json(err);
-  }
+router.get('/sign-in', (req, res) => {
+  res.render('signin');
 });
 
 //Login User
@@ -72,18 +63,11 @@ router.post('/sign-in', async (req, res) => {
         userId: req.session.userId,
       });
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
+  } catch (err) {}
 });
 
-router.get('/sign-up', async (req, res) => {
-  try {
-    res.render('signup');
-  } catch (err) {
-    res.status(500).json(err);
-  }
+router.get('/sign-up', (req, res) => {
+  res.render('signup');
 });
 
 // CREATE new user
@@ -102,15 +86,13 @@ router.post('/sign-up', async (req, res) => {
       req.session.save(() => {
         req.session.loggedIn = true;
         req.session.userId = userCreate.id;
-        res.status(200).json(userCreate);
+        res.status(200).send();
       });
     } else {
-      res.status(400).json({ message: 'Username taken! Please use another' });
+      res.status(409).json({ message: 'Username taken! Please use another' });
       return;
     }
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  } catch (err) {}
 });
 
 // Logout
@@ -120,7 +102,6 @@ router.post('/logout', (req, res) => {
       res.status(204).end();
     });
   } else {
-    res.status(404).end();
   }
 });
 
@@ -138,9 +119,7 @@ router.get('/dash', async (req, res) => {
       loggedIn: req.session.loggedIn,
       userId: req.session.userId,
     });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  } catch (err) {}
 });
 
 router.post('/dash', async (req, res) => {
@@ -150,15 +129,12 @@ router.post('/dash', async (req, res) => {
       postText: req.body.post_text,
       user_id: req.session.userId,
     });
-    res.status(200).json({ postCreate, message: 'Your post has been created' });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    res.status(200).send();
+  } catch (err) {}
 });
 
 router.get('/postnew', (req, res) => {
   res.render('postnew', { loggedIn: req.session.loggedIn });
-  res.status(500).json(err);
 });
 
 router.get('/edit/:id', async (req, res) => {
@@ -187,8 +163,8 @@ router.put('/edit/:id', async (req, res) => {
         postText: req.body.updateText,
       },
       { where: { id: id } }
-    ).then((response) => {
-      res.status(200).json({ message: 'Your post has been updated' });
+    ).then(() => {
+      res.status(200).send();
     });
   } catch (err) {}
 });
@@ -197,7 +173,7 @@ router.delete('/edit/:id', async (req, res) => {
   try {
     const id = req.params.id;
     Post.destroy({ where: { id: id } }).then(() => {
-      res.status(200).json({ message: 'Your post has been deleted' });
+      res.status(200).send();
     });
   } catch (err) {}
 });
