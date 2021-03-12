@@ -124,8 +124,14 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.get('/dash', (req, res) => {
-  res.render('dash', {
+router.get('/dash', async (req, res) => {
+  const getUserPosts = await Post.findAll({
+    where: {
+      id: req.session.userId,
+    },
+  });
+  const plainPosts = getUserPosts.map((data) => data.get({ plain: true }));
+  res.render('dash', {plainPosts,
     loggedIn: req.session.loggedIn,
     userId: req.session.userId,
   });
