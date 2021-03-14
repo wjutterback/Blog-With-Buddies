@@ -159,7 +159,6 @@ const renderEdit = async (req, res) => {
     include: [{ model: User }],
     where: { id: req.params.id },
   });
-  console.log(req.session);
   if (req.session.loggedIn && req.session.userId === editUser.user_id) {
     try {
       const plainPosts = editUser.get({ plain: true });
