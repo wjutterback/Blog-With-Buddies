@@ -2,6 +2,7 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const Comment = require('../models/Comment');
 
+//Get all Posts
 const getAllPosts = (req, res) => {
   Post.findAll({
     include: [{ model: User }],
@@ -12,6 +13,7 @@ const getAllPosts = (req, res) => {
   });
 };
 
+//Get a single Post by ID
 const getSinglePost = (req, res) => {
   const id = req.params.id;
   Post.findOne({
@@ -33,6 +35,7 @@ const getSinglePost = (req, res) => {
   });
 };
 
+//Create Comment
 const createComment = async (req, res) => {
   try {
     const id = req.params.id;
@@ -47,6 +50,7 @@ const createComment = async (req, res) => {
   }
 };
 
+//Login User
 const loginUser = async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -84,6 +88,7 @@ const loginUser = async (req, res) => {
   } catch (err) {}
 };
 
+//Create User
 const createUser = async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -108,6 +113,7 @@ const createUser = async (req, res) => {
   } catch (err) {}
 };
 
+//Logout
 const logout = (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -117,6 +123,7 @@ const logout = (req, res) => {
   }
 };
 
+//Render Dashboard
 const renderDashboard = async (req, res) => {
   try {
     const getUserPosts = await Post.findAll({
@@ -134,6 +141,7 @@ const renderDashboard = async (req, res) => {
   } catch (err) {}
 };
 
+//Create Post
 const createPost = async (req, res) => {
   try {
     await Post.create({
@@ -145,6 +153,7 @@ const createPost = async (req, res) => {
   } catch (err) {}
 };
 
+//Render Edit Page
 const renderEdit = async (req, res) => {
   try {
     const id = req.params.id;
@@ -162,6 +171,7 @@ const renderEdit = async (req, res) => {
   } catch (err) {}
 };
 
+//Edit a Post
 const editPost = async (req, res) => {
   try {
     const id = req.params.id;
@@ -177,6 +187,7 @@ const editPost = async (req, res) => {
   } catch (err) {}
 };
 
+//Delete a Post
 const deletePost = (req, res) => {
   try {
     const id = req.params.id;
