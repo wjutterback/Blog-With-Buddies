@@ -1,4 +1,4 @@
-{{#if loggedIn}}
+{{#if author}}
 <div class="card mb-2 mx-auto posts" id="postid" data-id="{{ plainPosts.id }}">
   <div class="card-title mb-0 pl-2 d-inline float-left">
     <div class="d-inline" id="commentTitle" contenteditable="true">
@@ -23,4 +23,8 @@
   <button class="btn btn-primary" id="edit">Update Post</button>
   <button class="btn btn-danger" id="delete">Delete This Post</button>
 </div>
+{{else}}
+  <div class="card-title text-center">Unauthorized Access</div>
+  <p class="card-text text-center">You are not the author of this post.</p>
 {{/if}}
+

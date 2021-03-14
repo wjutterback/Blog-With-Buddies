@@ -165,10 +165,11 @@ const renderEdit = async (req, res) => {
       res.render('edit', {
         plainPosts,
         loggedIn: req.session.loggedIn,
+        author: true,
       });
     } catch (err) {}
   } else {
-    res.redirect('/sign-in');
+    res.render('edit', { loggedIn: req.session.loggedIn });
   }
 };
 
