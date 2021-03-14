@@ -23,12 +23,11 @@ async function signup(name, password) {
       body: JSON.stringify({ name, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-    const responseMessage = await response.json();
     if (response.ok) {
+      const responseMessage = await response.json();
       $('#message').text(responseMessage.message);
       document.location.replace('/');
     }
-    $('#error').text(responseMessage.message);
   } catch (err) {}
 }
 
