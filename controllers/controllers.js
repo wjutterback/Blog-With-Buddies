@@ -2,12 +2,13 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const Comment = require('../models/Comment');
 
-//const postData: { map: (data: Object) => dbPost } = await
 const getAllPosts = (req, res) => {
-  Post.findAll({ include: [{ model: User }] }).then((postData) => {
-    const plainPosts = postData.map((data) => data.get({ plain: true }));
-    res.render('blog', { plainPosts, loggedIn: req.session.loggedIn });
-  });
+  Post.findAll({ include: [{ model: User }], order: [ ['updatedAt',  'DESC'] ] }).then(
+    (postData) => {
+      const plainPosts = postData.map((data) => data.get({ plain: true }));
+      res.render('blog', { plainPosts, loggedIn: req.session.loggedIn });
+    }
+  );
 };
 
 const getSinglePost = (req, res) => {

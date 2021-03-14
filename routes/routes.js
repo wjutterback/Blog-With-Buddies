@@ -89,7 +89,7 @@ router.post('/sign-up', async (req, res) => {
         res.status(200).send();
       });
     } else {
-      res.status(409).json({ message: 'Username taken! Please use another' });
+      res.status(409).json({ message: 'Username taken! Please use another.' });
       return;
     }
   } catch (err) {}
@@ -99,7 +99,7 @@ router.post('/sign-up', async (req, res) => {
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
-      res.status(204).end();
+      res.status(200).json({ message: 'You are now logged out!' });
     });
   } else {
   }

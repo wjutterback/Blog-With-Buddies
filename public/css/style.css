@@ -17,3 +17,15 @@ a {
 .date {
   padding-right: 0.5rem;
 }
+
+#message {
+  margin-bottom: 10px;
+  color: rgb(39, 206, 39);
+  font-size: 28px;
+}
+
+#error {
+  margin-top: 10px;
+  color: red;
+  font-size: 28px;
+}
