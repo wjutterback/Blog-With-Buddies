@@ -39,5 +39,3 @@ app.use(routes);
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 });
-
-//TODO: Not Logged In message / Sign In option div position/overhaul styling

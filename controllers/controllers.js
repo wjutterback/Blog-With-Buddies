@@ -15,24 +15,30 @@ const getAllPosts = (req, res) => {
 
 //Get a single Post by ID
 const getSinglePost = (req, res) => {
-  const id = req.params.id;
-  Post.findOne({
-    include: [{ model: User }],
-    where: { id: id },
-  }).then((postData) => {
-    const plainPosts = postData.get({ plain: true });
-    Comment.findAll({
-      include: [{ model: User, Post }],
-      where: { post_id: id },
-    }).then((commentData) => {
-      const commentsPost = commentData.map((data) => data.get({ plain: true }));
-      res.render('post', {
-        plainPosts,
-        loggedIn: req.session.loggedIn,
-        commentsPost,
+  if (req.session.loggedIn) {
+    const id = req.params.id;
+    Post.findOne({
+      include: [{ model: User }],
+      where: { id: id },
+    }).then((postData) => {
+      const plainPosts = postData.get({ plain: true });
+      Comment.findAll({
+        include: [{ model: User, Post }],
+        where: { post_id: id },
+      }).then((commentData) => {
+        const commentsPost = commentData.map((data) =>
+          data.get({ plain: true })
+        );
+        res.render('post', {
+          plainPosts,
+          loggedIn: req.session.loggedIn,
+          commentsPost,
+        });
       });
     });
-  });
+  } else {
+    res.redirect('/sign-in');
+  }
 };
 
 //Create Comment
@@ -113,32 +119,26 @@ const createUser = async (req, res) => {
   } catch (err) {}
 };
 
-//Logout
-const logout = (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(200).json({ message: 'You are now logged out!' });
-    });
-  } else {
-  }
-};
-
 //Render Dashboard
 const renderDashboard = async (req, res) => {
-  try {
-    const getUserPosts = await Post.findAll({
-      include: [{ model: User }],
-      where: {
-        user_id: req.session.userId,
-      },
-    });
-    const plainPosts = getUserPosts.map((data) => data.get({ plain: true }));
-    res.render('dash', {
-      plainPosts,
-      loggedIn: req.session.loggedIn,
-      userId: req.session.userId,
-    });
-  } catch (err) {}
+  if (req.session.loggedIn) {
+    try {
+      const getUserPosts = await Post.findAll({
+        include: [{ model: User }],
+        where: {
+          user_id: req.session.userId,
+        },
+      });
+      const plainPosts = getUserPosts.map((data) => data.get({ plain: true }));
+      res.render('dash', {
+        plainPosts,
+        loggedIn: req.session.loggedIn,
+        userId: req.session.userId,
+      });
+    } catch (err) {}
+  } else {
+    res.redirect('/sign-in');
+  }
 };
 
 //Create Post
@@ -155,20 +155,21 @@ const createPost = async (req, res) => {
 
 //Render Edit Page
 const renderEdit = async (req, res) => {
-  try {
-    const id = req.params.id;
-    Post.findOne({
-      include: [{ model: User }],
-      where: { id: id },
-    }).then((postData) => {
-      const plainPosts = postData.get({ plain: true });
-      console.log(plainPosts);
+  const editUser = await Post.findOne({
+    include: [{ model: User }],
+    where: { id: req.params.id },
+  });
+  if (req.session.loggedIn && req.body.id === editUser.id) {
+    try {
+      const plainPosts = editUser.get({ plain: true });
       res.render('edit', {
         plainPosts,
         loggedIn: req.session.loggedIn,
       });
-    });
-  } catch (err) {}
+    } catch (err) {}
+  } else {
+    res.redirect('/sign-in');
+  }
 };
 
 //Edit a Post
@@ -195,6 +196,16 @@ const deletePost = (req, res) => {
       res.status(200).send();
     });
   } catch (err) {}
+};
+
+//Logout
+const logout = (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(200).json({ message: 'You are now logged out!' });
+    });
+  } else {
+  }
 };
 
 module.exports = {
