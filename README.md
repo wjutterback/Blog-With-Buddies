@@ -1,10 +1,10 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green)](http://choosealicense.com/licenses/mit/)
-# MVC Tech Blog
+# Blog With Buddies
 
 ## Description
 
-> It's a blog for people who are interested in tech to interact and blog.
+> It's a blog for people who are interested in keeping in touch with friends and family.
 
 ## Link to Deployed Application
 
